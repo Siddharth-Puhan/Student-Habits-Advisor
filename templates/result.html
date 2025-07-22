@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e5e5f7;
+            opacity: 1;
+            background-image: radial-gradient(#9fb873 0.5px, #e5e5f7 0.5px);
+            background-size: 10px 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            height: calc(100vh - 100px);
+            padding: 40px;
+            box-sizing: border-box;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+
+        .left, .right {
+            flex: 1;
+            padding: 10px;
+        }
+
+        h2, h3 {
+            color: black;
+        }
+
+        ul {
+            line-height: 1.6;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: #9fb873;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="left">
+        <h2>🎓 Your Academic Cluster: <strong>{{ cluster }}</strong></h2>
+
+        {% if suggestions %}
+            <h3>🛠 Suggestions to Improve:</h3>
+            <ul>
+                {% for s in suggestions %}
+                    <li>{{ s }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>✅ Your habits look great! Keep up the good work!</p>
+        {% endif %}
+    </div>
+
+    <div class="right">
+        <h3>📊 Your Habits vs Cluster Average</h3>
+        <canvas id="habitChart"></canvas>
+    </div>
+</div>
+
+<div class="button-container">
+    <button><a href="/">Try Again</a></button>
+</div>
+
+<script>
+    const ctx = document.getElementById('habitChart').getContext('2d');
+    const habitChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ features | tojson }},
+            datasets: [
+                {
+                    label: 'Your Habits',
+                    data: {{ user_values | tojson }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                },
+                {
+                    label: 'Cluster Average',
+                    data: {{ cluster_avg | tojson }},
+                    backgroundColor: '#9fb873'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

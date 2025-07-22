@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Academic Habit Analyzer</title>
+    <style>
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e5e5f7;
+            opacity: 1;
+            background-image: radial-gradient(#9fb873 0.5px, #e5e5f7 0.5px);
+            background-size: 10px 10px;         
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h2 {
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: left;
+            color: black;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            margin-top: 25px;
+            background-color: #9fb873;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+        display: block;
+        margin: 25px auto 0 auto; 
+        background-color: #9fb873;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Your Daily Habits</h2>
+
+        <form method="POST" action="/predict">
+            <label for="study_hours">📚 Study Hours per Day:</label>
+            <input type="number" name="study_hours" step="0.1" min="0" max="12" placeholder="e.g., 3.5" required>
+
+            <label for="mental_health">🧠 Mental Health Rating (0–10):</label>
+            <input type="number" name="mental_health" step="0.1" min="0" max="10" placeholder="e.g., 6.5" required>
+
+            <label for="exercise">💪 Exercise Frequency (Days per Week):</label>
+            <input type="number" name="exercise" step="1" min="0" max="7" placeholder="e.g., 3" required>
+
+            <label for="attendance">📅 Attendance Percentage:</label>
+            <input type="number" name="attendance" step="1" min="0" max="100" placeholder="e.g., 85" required>
+
+            <label for="sleep">🛌 Sleep Hours per Day:</label>
+            <input type="number" name="sleep" step="0.1" min="0" max="12" placeholder="e.g., 7.5" required>
+
+            <label for="social_media">📱 Social Media Hours per Day:</label>
+            <input type="number" name="social_media" step="0.1" min="0" max="10" placeholder="e.g., 2" required>
+
+            <label for="netflix">📺 Netflix/Entertainment Hours per Day:</label>
+            <input type="number" name="netflix" step="0.1" min="0" max="10" placeholder="e.g., 1.5" required>
+
+            <input type="submit" value="Predict My Cluster">
+        </form>
+    </div>
+</body>
+</html>
